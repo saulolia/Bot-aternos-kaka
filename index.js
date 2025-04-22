@@ -30,7 +30,7 @@ function createBot() {
     host: 'mapatest97.aternos.me',
     port: 18180,
     username: nicks[currentNickIndex],
-    version: '1.21.4' // Versão específica para o servidor
+    version: '1.21.4'
   });
 
   bot.loadPlugin(pathfinder);
@@ -65,17 +65,20 @@ function createBot() {
 }
 
 function startMoving() {
-  // Importa minecraft-data de acordo com a versão do bot
-  const mcData = require('minecraft-data')(bot.version);
-  if (!mcData) {
-    console.log("Erro ao carregar minecraft-data!");
-    return;
+  try {
+    // Importando minecraft-data com base na versão do bot
+    const mcData = require('minecraft-data')(bot.version);
+    if (!mcData) {
+      throw new Error('Não foi possível carregar os dados do Minecraft.');
+    }
+
+    const defaultMove = new Movements(bot, mcData);
+    bot.pathfinder.setMovements(defaultMove);
+
+    moveRandomly();
+  } catch (error) {
+    console.error("Erro ao carregar minecraft-data:", error);
   }
-
-  const defaultMove = new Movements(bot, mcData);
-  bot.pathfinder.setMovements(defaultMove);
-
-  moveRandomly();
 }
 
 function moveRandomly() {

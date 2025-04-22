@@ -1,4 +1,3 @@
-// index.js
 const mineflayer = require('mineflayer');
 const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
 const { GoalNear } = goals;
@@ -31,7 +30,7 @@ function createBot() {
     host: 'mapatest97.aternos.me',
     port: 18180,
     username: nicks[currentNickIndex],
-    version: '1.21.4'
+    version: '1.21.4' // Especificando a versão do Minecraft
   });
 
   bot.loadPlugin(pathfinder);
@@ -67,6 +66,11 @@ function createBot() {
 
 function startMoving() {
   const mcData = require('minecraft-data')(bot.version);
+  if (!mcData) {
+    console.log("Erro ao carregar minecraft-data!");
+    return;
+  }
+
   const defaultMove = new Movements(bot, mcData);
   bot.pathfinder.setMovements(defaultMove);
 

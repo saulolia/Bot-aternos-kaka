@@ -38,9 +38,9 @@ function createBot() {
 
   bot.on('spawn', () => {
     console.log(`Logado como ${bot.username}`);
-    bot.chat('/unban Junin1');
-    bot.chat('/unban Carlin2');
-    bot.chat('/unban Pedrin3');
+    bot.chat('/pardon Junin1');
+    bot.chat('/pardon Carlin2');
+    bot.chat('/pardon Pedrin3');
     moveCount = 0;
     startMoving();
     checkIfAlone();

@@ -1,0 +1,20 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Status do Bot</title>
+</head>
+<body>
+  <h1>Status do Bot:</h1>
+  <div id="status">Conectando...</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on('status', status => {
+      document.getElementById('status').innerText = status;
+    });
+  </script>
+</body>
+</html>

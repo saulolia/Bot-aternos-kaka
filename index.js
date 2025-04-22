@@ -30,7 +30,7 @@ function createBot() {
     host: 'mapatest97.aternos.me',
     port: 18180,
     username: nicks[currentNickIndex],
-    version: '1.21.4' // Especificando a versão do Minecraft
+    version: '1.21.4' // Versão específica para o servidor
   });
 
   bot.loadPlugin(pathfinder);
@@ -65,6 +65,7 @@ function createBot() {
 }
 
 function startMoving() {
+  // Importa minecraft-data de acordo com a versão do bot
   const mcData = require('minecraft-data')(bot.version);
   if (!mcData) {
     console.log("Erro ao carregar minecraft-data!");

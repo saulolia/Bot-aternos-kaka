@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const mcData = require('minecraft-data');  // Movido para fora da função
 
 const nicks = ['Junin1', 'Carlin2', 'Pedrin3'];
 let currentNickIndex = 0;
@@ -30,7 +31,7 @@ function createBot() {
     host: 'mapatest97.aternos.me',
     port: 18180,
     username: nicks[currentNickIndex],
-    version: '1.21.4'
+    version: '1.16.5'
   });
 
   bot.loadPlugin(pathfinder);
@@ -66,13 +67,7 @@ function createBot() {
 
 function startMoving() {
   try {
-    // Importando minecraft-data com base na versão do bot
-    const mcData = require('minecraft-data')(bot.version);
-    if (!mcData) {
-      throw new Error('Não foi possível carregar os dados do Minecraft.');
-    }
-
-    const defaultMove = new Movements(bot, mcData);
+    const defaultMove = new Movements(bot, mcData(bot.version));  // Passando mcData aqui
     bot.pathfinder.setMovements(defaultMove);
 
     moveRandomly();
